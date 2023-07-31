@@ -1,8 +1,8 @@
 install:
 	npm ci
 
-brain-games:
-	node bin/brain-games.js 10
+gendiff:
+	node gendiff.js
 
 publish:
 	npm publish --dry-run
