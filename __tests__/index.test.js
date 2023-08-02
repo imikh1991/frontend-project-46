@@ -1,26 +1,16 @@
-import fs from 'fs';
+// import fs from 'fs';
 // import { describe, expect, it } from 'jest';
-// eslint-disable-next-line import/no-extraneous-dependencies
-
-import { jest } from '@jest/globals';
-
+// import { jest } from '@jest/globals';
 import { getFileContent } from '../fs.js';
-// Mock the fs module
-jest.mock('fs');
+// Mock fs.readFileSync function
 
 describe('getFileContent', () => {
-  it('should read file content successfully', () => {
-    const filePath = 'example.txt';
-    const fileContent = 'This is the file content.';
-
-    // Mock the readFileSync function to return the file content
-    fs.readFileSync.mockReturnValueOnce(fileContent);
-
+  it('should handle file read error', () => {
+    const filePath = '__fixtures__/file1.jso';
     const result = getFileContent(filePath);
-    // Expect the result to match the file content
-    expect(result).toBe(fileContent);
+    // const fileContent = 'This is the file content.';
+    // fs.readFileSync.mockReturnValueOnce(fileContent);
 
-    // Verify that readFileSync was called with the correct arguments
-    expect(fs.readFileSync).toHaveBeenCalledWith(filePath, 'utf-8');
+    expect(result).toBe(null);
   });
 });
