@@ -14,9 +14,26 @@ export const getFileContent = (filePath) => {
 
 export const getSortedKeys = (data) => {
   try {
-    // const obj = JSON.parse(data);
     const sortedKeys = _.fromPairs(_.sortBy(Object.entries(data), ([key]) => key));
     return sortedKeys;
+  } catch (error) {
+    console.log('Error occured', error.message);
+    return null;
+  }
+};
+
+export const dfsRecursive = (obj, indent = '.') => {
+  try {
+    const result = [];
+    for (const key in obj) {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        result.push(`${indent}${key}`);
+        dfsRecursive(obj[key], `${indent}.`);
+      } else {
+        result.push(`${indent}${key}: ${obj[key]}`);
+      }
+    }
+    return result;
   } catch (error) {
     console.log('Error occured', error.message);
     return null;
