@@ -1,16 +1,22 @@
-// import fs from 'fs';
-// import { describe, expect, it } from 'jest';
-// import { jest } from '@jest/globals';
-import { getFileContent } from '../fs.js';
-// Mock fs.readFileSync function
+/* eslint-disable no-undef */
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+import fs from 'fs';
+import generateDiffs from '../src/index.js';
 
-describe('getFileContent', () => {
-  it('should handle file read error', () => {
-    const filePath = '__fixtures__/file1.jso';
-    const result = getFileContent(filePath);
-    // const fileContent = 'This is the file content.';
-    // fs.readFileSync.mockReturnValueOnce(fileContent);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-    expect(result).toBe(null);
-  });
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
+const expectedStylish = readFile('expected.txt');
+const expectedPlain = readFile('expectedPlain.txt');
+const expectedJson = readFile('expectedJson.txt');
+
+test.each(['json', 'yml'])('%s test', (format) => {
+  const file1 = getFixturePath(`file1.${format}`);
+  const file2 = getFixturePath(`file2.${format}`);
+  expect(generateDiffs(file1, file2, 'stylish')).toEqual(expectedStylish);
+  expect(generateDiffs(file1, file2, 'plain')).toEqual(expectedPlain);
+  expect(generateDiffs(file1, file2, 'json')).toEqual(expectedJson);
 });

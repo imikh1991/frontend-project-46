@@ -1,5 +1,9 @@
+# Вычислитель отличий
 #CLI project - JavaScript - Second project for Hexlet.io 
 Проект "Вычислитель Отличий"
+
+###  Пример использования:
+<a href="https://asciinema.org/a/603655" target="_blank"><img src="https://asciinema.org/a/603655.svg" /></a>
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/imikh1991/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/imikh1991/frontend-project-46/actions)
